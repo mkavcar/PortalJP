@@ -1,0 +1,25 @@
+<!-- Browser Warning -->
+<div class="rsp-warning rsp-browser-warning" ng-if=":: $root.isLegacyBrowser">
+	For an optimal viewing experience please use the latest version of <a href="http://www.google.com/chrome" target="_blank">Google Chrome</a>	or <a href="http://www.apple.com/safari" target="_blank">Apple Safari</a>!
+</div>
+
+<!-- Loader -->
+<div ng-if="$root.loading" class="rsp-page-spinner">
+	<div>
+		<div>Loading...</div>
+	</div>
+</div>
+
+<!-- App -->
+<div ng-if="!$root.loading">
+
+	<!-- Header -->
+	<rsp-header></rsp-header>
+	<rsp-nav></rsp-nav>
+
+	<!-- Content -->
+	<ng-outlet></ng-outlet>
+	
+	<!-- Footer -->
+	<rsp-footer></rsp-footer>		
+</div>

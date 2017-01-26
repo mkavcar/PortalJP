@@ -1,0 +1,14 @@
+<div ng-if="$ctrl.list === null || ($ctrl.list !== null && ($ctrl.list.length === 0 || ($ctrl.filteredlist || [0]).length === 0))"
+	style="padding:60px 0;">
+
+	<!-- Loader -->
+	<div ng-if="$ctrl.list === null" style="margin:auto">
+		Loading...
+	</div>
+
+	<!-- Not Found Message -->
+	<div ng-if="$ctrl.list !== null && ($ctrl.list.length === 0 || ($ctrl.filteredlist || [0]).length === 0)"
+		style="margin:auto">
+		{{:: ($ctrl.notFoundMessage || 'No items found') }}
+	</div>
+</div>

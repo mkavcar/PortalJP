@@ -1,0 +1,87 @@
+/* TBD: Covert to SASS and cleaned up */
+
+app {
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 8px;
+}
+
+
+.rsp-header-text {
+    padding-left: 20px;
+    border-left: 1px solid #ddd;
+    margin-left: 20px!important;
+}
+
+.rsp-footer {
+    padding: 40px 16px;
+}
+
+.rsp-footer a {
+    color:#888;
+}
+
+.rsp-hint {
+    font-size: 12px;
+    line-height: 14px;
+    color:grey;
+}
+
+.rsp-success {
+  background: lightgreen;
+  color: darkgreen;
+}
+
+.rsp-warning {
+  background: #f1e9a4;
+  color: #c36b00;
+}
+
+.rsp-error {
+  background: salmon;
+  color: darkred;
+}
+
+.rsp-fatal {
+  background: #b25757;
+  color: #400000;
+}
+
+.rsp-disabled {
+  background: #eee;
+  color: #777;
+}
+
+
+.rsp-vertalign {
+  margin: auto;
+}
+
+.rsp-center {
+  margin:auto;
+}
+
+.rsp-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.rsp-browser-warning {
+  padding: 12px;
+  text-align: center;
+}
