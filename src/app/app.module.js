@@ -3,30 +3,47 @@
 //app.module.js
 angular
   .module('rsp.app', [
-    'ngComponentRouter',
+    'ui.router',
     'ngAnimate',
     'ngMessages',
-    'chart.js',
     'rsp.core',
     'rsp.currentOfferings'])
   .config(config)
-  .run(run)
-  .value('$routerRootComponent', 'app');
+  .run(run);
 
-config.$inject = ['$locationProvider', '$httpProvider', '$compileProvider'];
+config.$inject = ['$locationProvider', '$httpProvider', '$compileProvider', '$stateProvider', '$urlRouterProvider'];
 
-function config($locationProvider, $httpProvider, $compileProvider) {
+function config($locationProvider, $httpProvider, $compileProvider, $stateProvider, $urlRouterProvider) {
   $locationProvider.html5Mode(true);
   $httpProvider.useApplyAsync(true);
   //$compileProvider.debugInfoEnabled(false);
 
   //$compileProvider.commentDirectivesEnabled(false);  **Not working
   //$compileProvider.cssClassDirectivesEnabled(false); **Not working
+
+  // An array of state definitions
+  var states = [{ 
+      name: 'home', 
+      url: '/', 
+      component: 'home'  
+    },{ 
+      name: 'currentOfferings', 
+      url: '/currentOfferings', 
+      component: 'currentOfferings'
+    }
+  ];
+
+  $urlRouterProvider.otherwise("/");
+  
+  // Loop over the state definitions and register them
+  states.forEach(function(state) {
+    $stateProvider.state(state);
+  });
 }
 
-run.$inject = ['$log', '$http', '$interval', '$rootScope', '$rootRouter', '$location'];
+run.$inject = ['$log', '$http', '$interval', '$rootScope', '$location'];
 
-function run($log, $http, $interval, authService, $rootScope, $rootRouter, $location) {
+function run($log, $http, $interval, authService, $rootScope, $location) {
   //$rootScope.loading = true;
   //$log.startLogShipping($http, $interval);
 

@@ -19,7 +19,6 @@ function HomeController() {
     //authService.authorize();
 
     bind();
-
   }
 
   function bind() {

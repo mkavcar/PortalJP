@@ -6,17 +6,11 @@ angular
     templateUrl: 'app/core/components/header.html'
 });
 
-HeaderController.$inject = ['$rootRouter'];
+HeaderController.$inject = [];
 
-function HeaderController($rootRouter) {
+function HeaderController() {
   var 
     ctrl = this;
-    ctrl.navigate = navigate;
-
   
-  ////////////
-  function navigate(component) {
-    $rootRouter.navigate([component]);
-  }
 
 };

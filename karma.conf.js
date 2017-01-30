@@ -15,16 +15,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/angular/angular.js',
-      'bower_components/angular-animate/angular-animate.min.js',
-      'node_modules/@angular/router/angular1/angular_1_router.js',
-      'bower_components/firebase/firebase.js',
-      'bower_components/angularfire/dist/angularfire.min.js',
-      'bower_components/ng-tags-input/ng-tags-input.min.js',
+      'dist/vendor.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'src/app/app.module.js',
-      'src/app/*.js',
-      'src/app/**/*.js'
+      'dist/app.js',
+      'dist/html.js',
+      'app/**/*.spec.js'
     ],
 
 

@@ -20,18 +20,22 @@ app {
 }
 
 
-.rsp-header-text {
-    padding-left: 20px;
-    border-left: 1px solid #ddd;
-    margin-left: 20px!important;
+.rsp-header {
+    padding: 10px;
+    background: #ddd;
 }
 
 .rsp-footer {
-    padding: 40px 16px;
+    padding: 10px;
+    background-color:#888;
 }
 
 .rsp-footer a {
-    color:#888;
+    
+}
+
+.rsp-nav {
+  background: #eee;
 }
 
 .rsp-hint {

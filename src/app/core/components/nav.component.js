@@ -6,17 +6,10 @@ angular
     templateUrl: 'app/core/components/nav.html'
 });
 
-NavController.$inject = ['$rootRouter'];
+NavController.$inject = [];
 
-function NavController($rootRouter) {
+function NavController() {
   var 
     ctrl = this;
-    ctrl.navigate = navigate;
-
-  
-  ////////////
-  function navigate(component) {
-    $rootRouter.navigate([component]);
-  }
 
 };

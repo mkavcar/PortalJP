@@ -3,9 +3,9 @@ angular
   .module('rsp.core')
   .factory('authService', authService);
 
-authService.$inject = ['$q', '$http', 'constants', '$log', 'tokenService', '$rootRouter', 'utilService'];
+authService.$inject = ['$q', '$http', 'constants', '$log', 'tokenService', 'utilService'];
 
-function authService($q, $http, constants, $log, tokenService, $rootRouter, utilService) {
+function authService($q, $http, constants, $log, tokenService, utilService) {
   var authData = null,
     authToken = null,
     _isAppAdmin = false,
@@ -62,12 +62,13 @@ function authService($q, $http, constants, $log, tokenService, $rootRouter, util
   function authorize(role) {
     if (isLoggedIn()) {
       if (!_isAppAdmin) {
-        if (role && !isInRole(role))
-          $rootRouter.navigate(['AccessDenied']);
+        if (role && !isInRole(role)) {
+         // $rootRouter.navigate(['AccessDenied']);
+        }
       }
     }
-    else
-      $rootRouter.navigate(['Splash']);
+    //else
+    //  $rootRouter.navigate(['Splash']);
   }
 
   function init() {
@@ -117,7 +118,6 @@ function authService($q, $http, constants, $log, tokenService, $rootRouter, util
 
         if (response.status === 500) {
           $log.error('Error getting user context: ' + response.statusText, 'rsp.core', 'authService');
-          utilService.showErrorToast('An error occured tyring login. Please try again or contact support.');
         }
 
         return $q.reject(response);
