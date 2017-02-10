@@ -6,6 +6,7 @@ angular
     'ui.router',
     'ngAnimate',
     'ngMessages',
+    'ui.grid',
     'rsp.core',
     'rsp.currentOfferings'])
   .config(config)

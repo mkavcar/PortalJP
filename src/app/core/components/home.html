@@ -1,3 +1,14 @@
+<div style="margin:20px;">
 <h1 class="rsp-home-header">
     Home2
 </h1>
+
+<div>
+    <input type="text" ng-model="$ctrl.searchText" style="width:200px;" />
+    <button ng-click="$ctrl.search($ctrl.searchText)">Search</button>
+</div>
+
+<div style="margi-topn:20px;">
+ <div id="grid1" ui-grid="$ctrl.gridOptions" class="grid"></div>
+</div>
+</div>
