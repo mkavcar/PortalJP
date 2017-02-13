@@ -4,11 +4,39 @@
 </h1>
 
 <div>
-    <input type="text" ng-model="$ctrl.searchText" style="width:200px;" />
-    <button ng-click="$ctrl.search($ctrl.searchText)">Search</button>
+    <input type="text" ng-model="$ctrl.searchObj.name.value" style="width:200px;" ng-change="$ctrl.search($ctrl.searchObj.name)" placeholder="Name" />
+    <input type="text" ng-model="$ctrl.searchObj.company.value" style="width:200px;" ng-change="$ctrl.search($ctrl.searchObj.company)" placeholder="Company" />
+    <button ng-click="$ctrl.toggle()">Toggle Company Column</button>
 </div>
 
-<div style="margi-topn:20px;">
- <div id="grid1" ui-grid="$ctrl.gridOptions" class="grid"></div>
+<div style="margin-top:20px;position:relative;">
+ <!--<div id="grid1" ui-grid="$ctrl.gridOptions" class="grid"></div>-->
+
+<div id="mySidenav" class="sidenav">
+    <a ng-click="$ctrl.hide()" href="javascript:void(0)" class="closebtn">&times;</a>
+    <div>{{ $ctrl.sitem.name}}</div>
+    <div>{{ $ctrl.sitem.company}}</div>
+    <div>{{ $ctrl.sitem.gender}}</div>
+</div> 
+
+ <table id="table1" class="rsp-table" style="width:100%">
+<thead>
+<tr>
+    <th style="width:30px;"></th>
+<th style="width:200px;">Name</th>
+<th>Company</th>
+<th>Gender</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="item in $ctrl.data" ng-click="$ctrl.view(item)">
+<td><input type="checkbox" ng-click="$ctrl.select(item,$event)"></td>
+<td>{{:: item.name}}</td>
+<td>{{:: item.company}}</td>
+<td>{{:: item.gender}}</td>
+</tr>
+</tr>
+<tbody>
+</table>
 </div>
 </div>

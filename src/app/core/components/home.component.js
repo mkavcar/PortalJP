@@ -9,7 +9,22 @@ angular
 HomeController.$inject = ['$timeout', 'uiGridConstants', 'utilService'];
 
 function HomeController($timeout, uiGridConstants, utilService) {
-  var ctrl = this;
+  var ctrl = this, col2State = true;
+
+  ctrl.searchObj = {
+    field: null,
+    value: null,
+    comparer: null,
+    name: {
+      field: ['name'],
+      comparer: utilService.filterByEquals
+    },
+    company: {
+      field: ['company'],
+      comparer: utilService.filterByContains
+    }
+  }
+
   ctrl.gridOptions = {
       enableSorting: true,
       rowHeight: 50,
@@ -33,25 +48,59 @@ function HomeController($timeout, uiGridConstants, utilService) {
 
   ctrl.$onInit = $onInit;
   ctrl.search = search;
+  ctrl.toggle = toggle;
+  ctrl.view = view;
+  ctrl.hide = hide;
+  ctrl.select = select;
 
   ////////////
   function $onInit() {
     bind();
   }
 
-  function search() {
+  function search(search) {
+    ctrl.searchObj.field = search.field;
+    ctrl.searchObj.value = search.value;
+    ctrl.searchObj.comparer = search.comparer;
+
     bind();
   }
 
-  function bind() {
-    ctrl.isLoading = true;
-    $timeout(function() {
-      
-      ctrl.gridOptions.data = utilService.filterArray(data, ['name'], ctrl.searchText);
-      ctrl.isLoading = false;  
-    }, 0);  
+  function toggle() {
+    if (col2State)
+      angular.element("#table1 td:nth-child(2),#table1 th:nth-child(2)").hide();
+    else
+      angular.element("#table1 td:nth-child(2),#table1 th:nth-child(2)").show();
+
+
+    col2State = !col2State;
   }
 
+  function select(item, e) {
+    console.log(e.currentTarget.checked);
+  }
+
+  function view(item) {
+    ctrl.sitem = item;
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function hide() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+
+  function bind() {
+    //ctrl.isLoading = true;
+    //$timeout(function() {
+    //  
+    //  ctrl.gridOptions.data = utilService.filterArray(data, ['name'], ctrl.searchText);
+    //  ctrl.isLoading = false;  
+    //}, 0);
+    ctrl.data = utilService.filterArray(data, ctrl.searchObj.field, ctrl.searchObj.value, null, ctrl.searchObj.comparer);  
+  }
+
+
+  
 
 
 

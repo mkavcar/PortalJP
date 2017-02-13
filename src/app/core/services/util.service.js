@@ -10,7 +10,9 @@ function utilService() {
             getObj: getObj,
             setObj: setObj,
             filter: filter,
-            filterArray: filterArray
+            filterArray: filterArray,
+            filterByEquals: filterByEquals,
+            filterByContains: filterByContains
         };
 
     return utilService;
@@ -24,13 +26,13 @@ function utilService() {
         _obj = obj;
     }
 
-    function filterArray(data, fields, search, sort) {
+    function filterArray(data, fields, search, sort, func) {
         var res = data;
 
         if (search && data.length > 0) {
-            search = search.toLowerCase();
+            if (angular.isString(search)) search = search.toLowerCase();
             res = _.filter(data, function (item) {
-                return filter(item, fields, search);
+                return filter(item, fields, search, func);
             });
         }
 
@@ -44,16 +46,16 @@ function utilService() {
         return res;
     }
 
-    function filter(item, fields, search) {
+    function filter(item, fields, search, func) {
         var res = null;
 
         if (search && item && fields) {
             for (var i = 0; i < fields.length; i++) {
                 if (res === null && item[fields[i]])
-                    res = filterItem(item[fields[i]], search);
+                    res = func(item[fields[i]], search);
                 else {
                     if (!res && item[fields[i]]) {
-                        res = filterItem(item[fields[i]], search);
+                        res = func(item[fields[i]], search);
                     }
                 }
             }
@@ -70,5 +72,16 @@ function utilService() {
         }
         else
             return (item.toLowerCase().indexOf(search) >= 0);
+    }
+
+    function filterByEquals(item, search) {
+        if (angular.isString(item))
+            return (item.toLowerCase() === search);
+        else
+            return (item === search);
+    }
+
+    function filterByContains(item, search) {
+        return (item.toLowerCase().indexOf(search) >= 0);
     }
 }

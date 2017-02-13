@@ -5,3 +5,73 @@
 .ui-grid, .ui-grid-viewport {
     height: auto !important;
 }
+
+.rsp-table {
+    table-layout: fixed;
+    border: 1px solid #bbb;
+    border-collapse: collapse;
+}
+
+.rsp-table tr {
+    height:48px;
+    cursor: pointer;
+}
+
+.rsp-table tr:hover {
+    background-color: lightblue;
+}
+
+.rsp-table td {
+    border: 1px solid #bbb;
+    padding: 0 10px;
+}
+
+.rsp-table th {
+    border: 1px solid #bbb;
+    padding: 0 10px;
+    background-color: #aaa;
+}
+
+
+
+
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: absolute; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    right: 0;
+    background-color: #f5f5f5; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav div {
+    padding:20px;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #bbb;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
