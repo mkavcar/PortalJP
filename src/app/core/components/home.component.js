@@ -97,6 +97,8 @@ function HomeController($timeout, uiGridConstants, utilService) {
     //  ctrl.isLoading = false;  
     //}, 0);
     ctrl.data = utilService.filterArray(data, ctrl.searchObj.field, ctrl.searchObj.value, null, ctrl.searchObj.comparer);  
+
+    console.log(_.chain(ctrl.data).map('gender').uniq().value());
   }
 
 

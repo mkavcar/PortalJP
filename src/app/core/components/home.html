@@ -22,7 +22,7 @@
  <table id="table1" class="rsp-table" style="width:100%">
 <thead>
 <tr>
-    <th style="width:30px;"></th>
+    <th style="width:45px;"></th>
 <th style="width:200px;">Name</th>
 <th>Company</th>
 <th>Gender</th>
@@ -30,7 +30,7 @@
 </thead>
 <tbody>
 <tr ng-repeat="item in $ctrl.data" ng-click="$ctrl.view(item)">
-<td><input type="checkbox" ng-click="$ctrl.select(item,$event)"></td>
+<td><input type="checkbox" id="cb{{:: $id}}" name="cb{{:: $id}}" ng-click="$ctrl.select(item,$event)"/><label for="cb{{:: $id}}"></label></td>
 <td>{{:: item.name}}</td>
 <td>{{:: item.company}}</td>
 <td>{{:: item.gender}}</td>

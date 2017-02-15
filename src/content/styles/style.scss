@@ -86,3 +86,23 @@
   padding: 12px;
   text-align: center;
 }
+
+
+input[type=checkbox] {
+  display:none;
+}
+ 
+input[type=checkbox] + label:before {
+  content: '\2610';
+}
+
+input[type=checkbox] + label {
+    margin: 0;
+    font-weight: normal;
+    font-size: 29px;
+    color: #1f4894;
+}
+
+input[type=checkbox]:checked + label:before {
+  content: '\2611';
+}
