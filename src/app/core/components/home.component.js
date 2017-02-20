@@ -11,6 +11,7 @@ HomeController.$inject = ['$timeout', 'uiGridConstants', 'utilService'];
 function HomeController($timeout, uiGridConstants, utilService) {
   var ctrl = this, col2State = true;
 
+  ctrl.invGoal = {};
   ctrl.searchObj = {
     field: null,
     value: null,
@@ -22,6 +23,14 @@ function HomeController($timeout, uiGridConstants, utilService) {
     company: {
       field: ['company'],
       comparer: utilService.filterByContains
+    },
+    protection: {
+        field: ['protection'],
+        comparer: utilService.filterByArray
+    },
+    goal: {
+        field: ['goal'],
+        comparer: utilService.filterByArray
     }
   }
 
@@ -52,10 +61,40 @@ function HomeController($timeout, uiGridConstants, utilService) {
   ctrl.view = view;
   ctrl.hide = hide;
   ctrl.select = select;
+  ctrl.invGoalChange = invGoalChange;
+  ctrl.setGoal = setGoal;
 
   ////////////
   function $onInit() {
     bind();
+  }
+
+  function invGoalChange() {
+    //   var arrPrt = [];
+    //   var arrGl = [];
+
+    //   //set protection filter array
+    //   if(ctrl.invGoal.mdl.fpg || ctrl.invGoal.mdl.fpi || ctrl.invGoal.mdl.fpc) arrPrt.push('Full Protection');
+    //   if(ctrl.invGoal.mdl.hpg || ctrl.invGoal.mdl.hpi || ctrl.invGoal.mdl.hpc) arrPrt.push('Half Protection');
+    //   if(ctrl.invGoal.mdl.npg || ctrl.invGoal.mdl.npi || ctrl.invGoal.mdl.npc) arrPrt.push('No Protection');
+    
+    //   //set goal filter array
+    //   if(ctrl.invGoal.mdl.fpg || ctrl.invGoal.mdl.hpg || ctrl.invGoal.mdl.npg) arrGl.push('Growth');
+    //   if(ctrl.invGoal.mdl.fpi || ctrl.invGoal.mdl.hpi || ctrl.invGoal.mdl.npi) arrGl.push('Income');
+    //   if(ctrl.invGoal.mdl.fpc || ctrl.invGoal.mdl.hpc || ctrl.invGoal.mdl.npc) arrGl.push('Income+Growth');
+
+    //   ctrl.searchObj.protection.value = arrPrt.length > 0 ? arrPrt :  null;
+    //   ctrl.searchObj.goal.value = arrGl.length > 0 ? arrGl :  null;
+
+    //  console.log(ctrl.searchObj.protection.value);
+    //  console.log(ctrl.searchObj.goal.value);
+
+    console.log(_.chain(ctrl.invGoal.value).mapValues(function (value, key) { return {field: key, value: value}; }).filter('value').map('field').value());
+  }
+
+  function setGoal(goalArr) {
+    ctrl.invGoal.value = _.chain(goalArr).invert().mapValues(function () { return true; } ).value();
+    ctrl.invGoalChange();      
   }
 
   function search(search) {
@@ -98,10 +137,48 @@ function HomeController($timeout, uiGridConstants, utilService) {
     //}, 0);
     ctrl.data = utilService.filterArray(data, ctrl.searchObj.field, ctrl.searchObj.value, null, ctrl.searchObj.comparer);  
 
+    //ctrl.invGoal = countInvGoal(ctrl.data);
+
+    _.each(ctrl.data, function(item) {
+        if (item.protection == 'Full Protection' && item.goal == 'Growth') item.invGoal = 1;
+        if (item.protection == 'Full Protection' && item.goal == 'Income') item.invGoal = 2;
+        if (item.protection == 'Full Protection' && item.goal == 'Income+Growth') item.invGoal = 3;
+        if (item.protection == 'Half Protection' && item.goal == 'Growth') item.invGoal = 4;
+        if (item.protection == 'Half Protection' && item.goal == 'Income') item.invGoal = 5;
+        if (item.protection == 'Half Protection' && item.goal == 'Income+Growth') item.invGoal = 6;
+        if (item.protection == 'No Protection' && item.goal == 'Growth') item.invGoal = 7;
+        if (item.protection == 'No Protection' && item.goal == 'Income') item.invGoal = 8;
+        if (item.protection == 'No Protection' && item.goal == 'Income+Growth') item.invGoal = 9;  
+    });
+
+    ctrl.invGoal = _.countBy(ctrl.data, 'invGoal');
+
     console.log(_.chain(ctrl.data).map('gender').uniq().value());
   }
 
+//   function countInvGoal(data) {
+//       var invGoal = { fp: {}, hp: {}, np: {} };
 
+//     _.each(data, function (item) {
+//       if (item.protection == 'Full Protection')
+//           compareGoal(item, invGoal.fp);
+//       else if (item.protection == 'Half Protection')
+//           compareGoal(item, invGoal.hp);
+//       else if (item.protection == 'No Protection')
+//           compareGoal(item, invGoal.np);
+//     });
+
+//     return invGoal;
+//   }
+
+//   function compareGoal(item, p) {
+//     if (item.goal == 'Growth')
+//         p.g = (p.g) ? p.g + 1 : 1;
+//     else if (item.goal == 'Income')
+//         p.i = (p.i) ? p.i + 1 : 1;
+//     else if (item.goal == 'Income+Growth')
+//         p.gi = (p.gi) ? p.gi + 1 : 1;
+//   }
   
 
 
@@ -110,187 +187,261 @@ function HomeController($timeout, uiGridConstants, utilService) {
     {
         "name": "Ethel Price",
         "gender": "female",
-        "company": "Enersol"
+        "company": "Enersol",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Claudine Neal",
         "gender": "female",
-        "company": "Sealoud"
+        "company": "Sealoud",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Beryl Rice",
         "gender": "female",
-        "company": "Velity"
+        "company": "Velity",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Wilder Gonzales",
         "gender": "male",
-        "company": "Geekko"
+        "company": "Geekko",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Georgina Schultz",
         "gender": "female",
-        "company": "Suretech"
+        "company": "Suretech",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Carroll Buchanan",
         "gender": "male",
-        "company": "Ecosys"
+        "company": "Ecosys",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Valarie Atkinson",
         "gender": "female",
-        "company": "Hopeli"
+        "company": "Hopeli",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Schroeder Mathews",
         "gender": "male",
-        "company": "Polarium"
+        "company": "Polarium",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Lynda Mendoza",
         "gender": "female",
-        "company": "Dogspa"
+        "company": "Dogspa",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Sarah Massey",
         "gender": "female",
-        "company": "Bisba"
+        "company": "Bisba",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Robles Boyle",
         "gender": "male",
-        "company": "Comtract"
+        "company": "Comtract",
+        "protection": "Full Protection",
+        "goal": "Income"
     },
     {
         "name": "Evans Hickman",
         "gender": "male",
-        "company": "Parleynet"
+        "company": "Parleynet",
+        "protection": "Full Protection",
+        "goal": "Growth"
     },
     {
         "name": "Dawson Barber",
         "gender": "male",
-        "company": "Dymi"
+        "company": "Dymi",
+        "protection": "Half Protection",
+        "goal": "Growth"
     },
     {
         "name": "Bruce Strong",
         "gender": "male",
-        "company": "Xyqag"
+        "company": "Xyqag",
+        "protection": "No Protection",
+        "goal": "Growth"
     },
     {
         "name": "Nellie Whitfield",
         "gender": "female",
-        "company": "Exospace"
+        "company": "Exospace",
+        "protection": "No Protection",
+        "goal": "Growth"
     },
     {
         "name": "Jackson Macias",
         "gender": "male",
-        "company": "Aquamate"
+        "company": "Aquamate",
+        "protection": "Full Protection",
+        "goal": "Income+Growth"
     },
     {
         "name": "Pena Pena",
         "gender": "male",
-        "company": "Quarx"
+        "company": "Quarx",
+        "protection": "Full Protection",
+        "goal": "Income+Growth"
     },
     {
         "name": "Lelia Gates",
         "gender": "female",
-        "company": "Proxsoft"
+        "company": "Proxsoft",
+        "protection": "Full Protection",
+        "goal": "Income+Growth"
     },
     {
         "name": "Letitia Vasquez",
         "gender": "female",
-        "company": "Slumberia"
+        "company": "Slumberia",
+        "protection": "Half Protection",
+        "goal": "Income+Growth"
     },
     {
         "name": "Trevino Moreno",
         "gender": "male",
-        "company": "Conjurica"
+        "company": "Conjurica",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Barr Page",
         "gender": "male",
-        "company": "Apex"
+        "company": "Apex",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Kirkland Merrill",
         "gender": "male",
-        "company": "Utara"
+        "company": "Utara",
+        "protection": "No Protection",
+        "goal": "Growth"
     },
     {
         "name": "Blanche Conley",
         "gender": "female",
-        "company": "Imkan"
+        "company": "Imkan",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Atkins Dunlap",
         "gender": "male",
-        "company": "Comveyor"
+        "company": "Comveyor",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Everett Foreman",
         "gender": "male",
-        "company": "Maineland"
+        "company": "Maineland",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Gould Randolph",
         "gender": "male",
-        "company": "Intergeek"
+        "company": "Intergeek",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Kelli Leon",
         "gender": "female",
-        "company": "Verbus"
+        "company": "Verbus",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Freda Mason",
         "gender": "female",
-        "company": "Accidency"
+        "company": "Accidency",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Tucker Maxwell",
         "gender": "male",
-        "company": "Lumbrex"
+        "company": "Lumbrex",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Yvonne Parsons",
         "gender": "female",
-        "company": "Zolar"
+        "company": "Zolar",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Woods Key",
         "gender": "male",
-        "company": "Bedder"
+        "company": "Bedder",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Stephens Reilly",
         "gender": "male",
-        "company": "Acusage"
+        "company": "Acusage",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Mcfarland Sparks",
         "gender": "male",
-        "company": "Comvey"
+        "company": "Comvey",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Jocelyn Sawyer",
         "gender": "female",
-        "company": "Fortean"
+        "company": "Fortean",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Renee Barr",
         "gender": "female",
-        "company": "Kiggle"
+        "company": "Kiggle",
+        "protection": "No Protection",
+        "goal": "Income+Growth"
     },
     {
         "name": "Gaines Beck",
         "gender": "male",
-        "company": "Sequitur"
+        "company": "Sequitur",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Luisa Farrell",
         "gender": "female",
-        "company": "Cinesanct"
+        "company": "Cinesanct",
+        "protection": "No Protection",
+        "goal": "Income"
     },
     {
         "name": "Robyn Strickland",

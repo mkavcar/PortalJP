@@ -9,6 +9,34 @@
     <button ng-click="$ctrl.toggle()">Toggle Company Column</button>
 </div>
 
+<table id="grdInvGoal">
+    <tr>
+        <td></td>
+        <td><a ng-click="$ctrl.setGoal(['1','4','7'])">Growth</a></td>
+        <td><a ng-click="$ctrl.setGoal(['2','5','8'])">Income</a></td>
+        <td><a ng-click="$ctrl.setGoal(['3','6','9'])">Growth+Income</a></td>
+    </tr>
+    <tr>
+        <td><a ng-click="$ctrl.setGoal(['1','2','3'])">Full Protection</a></td>
+        <td><input type="checkbox" ng-model="$ctrl.invGoal.value[1]" id="cbIg1" name="cbIg1" ng-click="$ctrl.invGoalChange()"/><label for="cbIg1"></label> {{ $ctrl.invGoal["1"] }} results</td>
+        <td><input type="checkbox" ng-model="$ctrl.invGoal.value[2]" id="cbIg2" name="cbIg2" ng-click="$ctrl.invGoalChange()"/><label for="cbIg2"></label> {{ $ctrl.invGoal["2"] }} results</td>
+        <td><input type="checkbox" ng-model="$ctrl.invGoal.value[3]" id="cbIg3" name="cbIg3" ng-click="$ctrl.invGoalChange()"/><label for="cbIg3"></label> {{ $ctrl.invGoal["3"] }} results</td>
+    </tr>
+    <tr>
+        <td><a ng-click="$ctrl.setGoal(['4','5','6'])">Half Protection</a></td>
+        <td><input type="checkbox" ng-model="$ctrl.invGoal.value[4]" id="cbIg4" name="cbIg4" ng-click="$ctrl.invGoalChange()"/><label for="cbIg4"></label> {{ $ctrl.invGoal["4"] }} results</td>
+        <td><input type="checkbox" ng-model="$ctrl.invGoal.value[5]" id="cbIg5" name="cbIg5" ng-click="$ctrl.invGoalChange()"/><label for="cbIg5"></label> {{ $ctrl.invGoal["5"] }} results</td>
+        <td><input type="checkbox" ng-model="$ctrl.invGoal.value[6]" id="cbIg6" name="cbIg6" ng-click="$ctrl.invGoalChange()"/><label for="cbIg6"></label> {{ $ctrl.invGoal["6"] }} results</td>
+    </tr>
+    <tr>
+        <td><a ng-click="$ctrl.setGoal(['7','8','9'])">No Protection</a></td>
+        <td><input type="checkbox" ng-model="$ctrl.invGoal.value[7]" id="cbIg7" name="cbIg7" ng-click="$ctrl.invGoalChange()"/><label for="cbIg7"></label> {{ $ctrl.invGoal["7"] }} results</td>
+        <td><input type="checkbox" ng-model="$ctrl.invGoal.value[8]" id="cbIg8" name="cbIg8" ng-click="$ctrl.invGoalChange()"/><label for="cbIg8"></label> {{ $ctrl.invGoal["8"] }} results</td>
+        <td><input type="checkbox" ng-model="$ctrl.invGoal.value[9]" id="cbIg9" name="cbIg9" ng-click="$ctrl.invGoalChange()"/><label for="cbIg9"></label> {{ $ctrl.invGoal["9"] }} results</td>
+    </tr>
+    
+</table>
+
 <div style="margin-top:20px;position:relative;">
  <!--<div id="grid1" ui-grid="$ctrl.gridOptions" class="grid"></div>-->
 
@@ -26,6 +54,8 @@
 <th style="width:200px;">Name</th>
 <th>Company</th>
 <th>Gender</th>
+<th>Protection</th>
+<th>Goal</th>
 </tr>
 </thead>
 <tbody>
@@ -34,6 +64,8 @@
 <td>{{:: item.name}}</td>
 <td>{{:: item.company}}</td>
 <td>{{:: item.gender}}</td>
+<td>{{:: item.protection}}</td>
+<td>{{:: item.goal}}</td>
 </tr>
 </tr>
 <tbody>

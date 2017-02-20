@@ -75,3 +75,21 @@
     font-size: 36px;
     margin-left: 50px;
 }
+
+
+#grdInvGoal {
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#grdInvGoal td {
+    border: 1px solid #bbb;
+    padding: 5px;
+    text-align: center;
+}
+
+#grdInvGoal tr:first-child td:first-child {
+    border-top: none;
+    border-left: none;
+}

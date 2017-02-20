@@ -101,6 +101,7 @@ input[type=checkbox] + label {
     font-weight: normal;
     font-size: 29px;
     color: #1f4894;
+    vertical-align: middle;
 }
 
 input[type=checkbox]:checked + label:before {

@@ -12,7 +12,8 @@ function utilService() {
             filter: filter,
             filterArray: filterArray,
             filterByEquals: filterByEquals,
-            filterByContains: filterByContains
+            filterByContains: filterByContains,
+            filterByArray: filterByArray
         };
 
     return utilService;
@@ -83,5 +84,11 @@ function utilService() {
 
     function filterByContains(item, search) {
         return (item.toLowerCase().indexOf(search) >= 0);
+    }
+
+    function filterByArray(item, searchArr) {
+        return _.some(searchArr, function(search) {
+            return filterByEquals(item, search);
+        });
     }
 }
