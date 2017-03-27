@@ -33,7 +33,7 @@ function quickViewService ($timeout, $document) {
 
     function destroy() {
         //unbind scroll event
-        $document.unbind('scroll', onScroll);
+        $document.off('scroll', onScroll);
     }
 
     function show(){
@@ -46,7 +46,7 @@ function quickViewService ($timeout, $document) {
         $timeout(function() { _el.css('right','0px'); });
 
         //bind scroll event
-        $document.bind('scroll', onScroll);
+        $document.on('scroll', onScroll);
     };
   
     function hide() {
