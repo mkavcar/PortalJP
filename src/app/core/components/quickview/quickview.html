@@ -1,0 +1,8 @@
+<div id="mySidenav" class="rsp-qv">
+    <a ng-click="$ctrl.hide()" href="javascript:void(0)" class="closebtn">&times;</a>
+    
+    <div ng-if="$ctrl.qv.isOpen()">
+        <rsp-detail ng-if="$ctrl.bulkItems.length == 0 && $ctrl.detailItem" item="$ctrl.detailItem"></rsp-detail>
+        <rsp-bulk ng-if="$ctrl.bulkItems.length > 0" items="$ctrl.bulkItems" on-remove="$ctrl.onBulkRemove({id: id})"></rsp-bulk>
+    </div>
+</div> 

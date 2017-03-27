@@ -1,0 +1,12 @@
+<ul style="padding: 0;list-style-type: none;">
+    <li ng-repeat="item in $ctrl.items" style="border:1px solid #888; border-radius:3px;margin-bottom:10px;padding:10px;">
+        <div class="clearfix">
+            <div class="pull-left">
+                {{::item.name}}
+            </div>
+            <div class="pull-right">
+                <a ng-click="$ctrl.onRemove({id: item.checked})" class="removeBtn">&times;</a>
+            </div>
+        </div>
+    </li>
+</ul>

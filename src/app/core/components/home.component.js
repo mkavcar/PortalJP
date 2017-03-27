@@ -6,11 +6,13 @@ angular
     templateUrl: 'app/core/components/home.html'
   });
 
-HomeController.$inject = ['$timeout', 'uiGridConstants', 'utilService'];
+HomeController.$inject = ['$timeout', 'uiGridConstants', 'utilService', 'quickViewService'];
 
-function HomeController($timeout, uiGridConstants, utilService) {
+function HomeController($timeout, uiGridConstants, utilService, quickViewService) {
   var ctrl = this, col2State = true;
 
+  ctrl.selectedDeal = null;
+  ctrl.selectedDeals = [];
   ctrl.invGoal = {};
   ctrl.searchObj = {
     field: null,
@@ -59,10 +61,10 @@ function HomeController($timeout, uiGridConstants, utilService) {
   ctrl.search = search;
   ctrl.toggle = toggle;
   ctrl.view = view;
-  ctrl.hide = hide;
   ctrl.select = select;
   ctrl.invGoalChange = invGoalChange;
   ctrl.setGoal = setGoal;
+  ctrl.removeDeal = removeDeal;
 
   ////////////
   function $onInit() {
@@ -115,17 +117,47 @@ function HomeController($timeout, uiGridConstants, utilService) {
     col2State = !col2State;
   }
 
-  function select(item, e) {
-    console.log(e.currentTarget.checked);
+  function select(item, e, id) {
+    ctrl.selectedDeal = null;   
+    item.id = id;  
+    if (e.currentTarget.checked) {
+        item.checked = e.currentTarget.id;
+        $("#row"+id).addClass('rsp-selectedRow');
+    }
+    else {
+        item.checked = null;
+        $("#row"+id).removeClass('rsp-selectedRow');
+    } 
+    
+    ctrl.selectedDeals = _.filter(ctrl.data, function(_item) { return (_item.checked); });
+
+    if (ctrl.selectedDeals.length > 0) {
+        quickViewService.show();    
+    }
+    else {
+        quickViewService.hide();    
+    }
   }
 
-  function view(item) {
-    ctrl.sitem = item;
-    document.getElementById("mySidenav").style.width = "250px";
+  function view(item, e) {
+    if (e.target.nodeName !== 'INPUT' && e.target.nodeName !== 'LABEL') {
+        if (ctrl.selectedDeals.length < 1) {
+            ctrl.selectedDeal = item;
+        }
+
+        quickViewService.show();
+    }
   }
 
-  function hide() {
-    document.getElementById("mySidenav").style.width = "0";
+  function removeDeal(id) {
+      var item = _.find(ctrl.data, ['checked', id]);
+      if (item) {
+          item.checked = null;
+      
+        ctrl.selectedDeals = _.filter(ctrl.data, function(_item) { return (_item.checked); });
+        document.getElementById(id).checked = false;
+        $("#"+id.replace('cb','row')).removeClass('rsp-selectedRow');
+      }
   }
 
   function bind() {
@@ -153,7 +185,7 @@ function HomeController($timeout, uiGridConstants, utilService) {
 
     ctrl.invGoal = _.countBy(ctrl.data, 'invGoal');
 
-    console.log(_.chain(ctrl.data).map('gender').uniq().value());
+    //console.log(_.chain(ctrl.data).map('gender').uniq().value());
   }
 
 //   function countInvGoal(data) {

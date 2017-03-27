@@ -37,15 +37,12 @@
     
 </table>
 
-<div style="margin-top:20px;position:relative;">
- <!--<div id="grid1" ui-grid="$ctrl.gridOptions" class="grid"></div>-->
+<div style="margin-top:20px;" class="rsp-qv-wrapper">
+<div style="margin:10px 0 10px 0;">
+    {{$ctrl.data.length}} Records
+</div>
 
-<div id="mySidenav" class="sidenav">
-    <a ng-click="$ctrl.hide()" href="javascript:void(0)" class="closebtn">&times;</a>
-    <div>{{ $ctrl.sitem.name}}</div>
-    <div>{{ $ctrl.sitem.company}}</div>
-    <div>{{ $ctrl.sitem.gender}}</div>
-</div> 
+<rsp-quick-view bulk-items="$ctrl.selectedDeals" detail-item="$ctrl.selectedDeal" on-bulk-remove="$ctrl.removeDeal(id)"></rsp-quick-view>
 
  <table id="table1" class="rsp-table" style="width:100%">
 <thead>
@@ -59,8 +56,8 @@
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="item in $ctrl.data" ng-click="$ctrl.view(item)">
-<td><input type="checkbox" id="cb{{:: $id}}" name="cb{{:: $id}}" ng-click="$ctrl.select(item,$event)"/><label for="cb{{:: $id}}"></label></td>
+<tr id="row{{:: $id}}" ng-repeat="item in $ctrl.data" ng-click="$ctrl.view(item,$event)">
+<td><input type="checkbox" id="cb{{:: $id}}" name="cb{{:: $id}}" ng-click="$ctrl.select(item,$event, $id)"/><label for="cb{{:: $id}}"></label></td>
 <td>{{:: item.name}}</td>
 <td>{{:: item.company}}</td>
 <td>{{:: item.gender}}</td>
