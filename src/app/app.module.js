@@ -31,6 +31,10 @@ function config($locationProvider, $httpProvider, $compileProvider, $stateProvid
       name: 'currentOfferings', 
       url: '/currentOfferings', 
       component: 'currentOfferings'
+    },{ 
+      name: 'landing', 
+      url: '/landing', 
+      component: 'landing'
     }
   ];
 

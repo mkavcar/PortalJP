@@ -1,5 +1,10 @@
 /* TBD: Covert to SASS and cleaned up */
 
+html {
+  font-family: Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height: 1.4;
+    letter-spacing: -.1px;
+}
 
 ::-webkit-scrollbar {
   width: 4px;

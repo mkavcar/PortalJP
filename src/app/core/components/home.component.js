@@ -65,10 +65,17 @@ function HomeController($timeout, uiGridConstants, utilService, quickViewService
   ctrl.invGoalChange = invGoalChange;
   ctrl.setGoal = setGoal;
   ctrl.removeDeal = removeDeal;
+  ctrl.open = open;
 
   ////////////
   function $onInit() {
     bind();
+  }
+
+  function open(e) {
+      e.preventDefault();
+
+      alert('hello');
   }
 
   function invGoalChange() {
