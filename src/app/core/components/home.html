@@ -5,6 +5,7 @@
 
 <a ng-href="/currentOfferings" ng-click="$ctrl.open($event)">Test Link</a>
 
+
 <div>
     <input type="text" ng-model="$ctrl.searchObj.name.value" style="width:200px;" ng-change="$ctrl.search($ctrl.searchObj.name)" placeholder="Name" />
     <input type="text" ng-model="$ctrl.searchObj.company.value" style="width:200px;" ng-change="$ctrl.search($ctrl.searchObj.company)" placeholder="Company" />
@@ -38,6 +39,7 @@
     </tr>
     
 </table>
+<button ng-click="$ctrl.openModal()">Open Modal</button>
 
 <div style="margin-top:20px;" class="rsp-qv-wrapper">
 <div style="margin:10px 0 10px 0;">

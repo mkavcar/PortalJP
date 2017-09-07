@@ -6,9 +6,9 @@ angular
     templateUrl: 'app/core/components/home.html'
   });
 
-HomeController.$inject = ['$timeout', 'uiGridConstants', 'utilService', 'quickViewService'];
+HomeController.$inject = ['$timeout', 'uiGridConstants', 'utilService', 'quickViewService', 'modalService'];
 
-function HomeController($timeout, uiGridConstants, utilService, quickViewService) {
+function HomeController($timeout, uiGridConstants, utilService, quickViewService, modalService) {
   var ctrl = this, col2State = true;
 
   ctrl.selectedDeal = null;
@@ -66,6 +66,7 @@ function HomeController($timeout, uiGridConstants, utilService, quickViewService
   ctrl.setGoal = setGoal;
   ctrl.removeDeal = removeDeal;
   ctrl.open = open;
+  ctrl.openModal = openModal;
 
   ////////////
   function $onInit() {
@@ -76,6 +77,14 @@ function HomeController($timeout, uiGridConstants, utilService, quickViewService
       e.preventDefault();
 
       alert('hello');
+  }
+
+  function openModal() {
+      modalService.open('myModal', '<h1>My name is {{:: params.name }} </h1><br><button tabindex="2">Cancel</button><button tabindex="3">Confirm</button>', { name: 'Melik' });
+
+    //   $timeout(function() {
+    //       modalService.close('myModal');
+    //   }, 3000);
   }
 
   function invGoalChange() {
